@@ -6,17 +6,19 @@ import java.io.IOException;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class LeitorDadosTeste {
-	static JSONParser parser = new JSONParser();
-	public static JSONObject jsonObject;
+	public static JSONParser parser = new JSONParser();
+	public JSONObject jsonObject;
 
-	public static void main(String[] args) throws Exception {
-		jsonObject = lerJson();
-		System.out.println(jsonObject.get("url"));
-		System.out.println(jsonObject.get("email"));
-		System.out.println(jsonObject.get("senha"));
-
+	
+	public LeitorDadosTeste() {
+		try {
+			jsonObject = lerJson();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
