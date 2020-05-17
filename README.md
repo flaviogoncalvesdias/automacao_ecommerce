@@ -9,13 +9,6 @@ Pré-Requisitos para execução do proejto:
 
 Configurações iniciais: 
 
-1- Dentro do projeto, no diretório: "src/test/resources". Editar o arquivo "config.properties";
-2- Alterar o valor da a chave: "prop.chromedriver.path" para o diretório onde se encontra o chromedriver(o projeto foi testado apenas com o chromedriver); 
-Por exemplo: 
-
-prop.chromedriver.path = "/Users/mac/Documents/drive/chromedriver.exe"  
-
-OU 
-
-prop.chromedriver.path = "C:/drive/chromedriver.exe"
-
+1-  Copiar o chromedriver(o projeto foi testado apenas com o chromedriver), para a Pasta raiz do Projeto; 
+Por exemplo: copiar o chrome driver para o diretório: "C:/Users/<Nome do Usuario>/Documentos/<projeto-automacao-ecommerce>"
+Com isso, a automação irá reconhecer o chomedriver, e utilizará, para as operações com o browser. 

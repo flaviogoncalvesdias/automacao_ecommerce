@@ -1,6 +1,7 @@
 package scenarios;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -16,13 +17,16 @@ import utils.PropertiesReader;
 public class ScriptTesteEcommerce {	
 	private static final Logger logger = Logger.getLogger(ScriptTesteEcommerce.class);
 	public PropertiesReader properties = new PropertiesReader();
+	Properties prop;
 	public LeitorDadosTeste dadosTeste  = new LeitorDadosTeste();
 	private WebDriver driver;
 
 	@Before
 	public void beforeTest() throws Exception {
+		prop = properties.getProp();
+		
 //		logger.info("-- Inicio da Execução Cenário: " + scenario.getName());
-		inicializarChromeDriver();
+		inicializarChromeDriver(prop);
 		logger.info("URL: "+ dadosTeste.getData("url"));
 		
 	}
@@ -36,11 +40,35 @@ public class ScriptTesteEcommerce {
 	 * Inicializa ChromeDriver	
 	 * @throws IOException
 	 */
-	private void inicializarChromeDriver() throws IOException {
-		System.setProperty("webdriver.chrome.driver", properties.getDriverPath());
+	private void inicializarChromeDriver(Properties prop) throws IOException {
+		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		ChromeOptions chromeOptions = new ChromeOptions();
-//		chromeOptions.addArguments("--start-maximized");
+		chromeOptions.addArguments("--start-maximized");
 		driver = new ChromeDriver(chromeOptions);
+	}
+	
+	/**
+	 * Retorna o path do chromeDriver
+	 * 
+	 * @param prop
+	 * @return
+	 * @throws IOException
+	 */
+	public String getDriverPath(Properties props) throws IOException {
+		return props.getProperty("prop.chromedriver.path");
+
+	}
+
+	/**
+	 * Retorna o path do json de dados de Testes
+	 * 
+	 * @param prop
+	 * @return
+	 * @throws IOException
+	 */
+	public String getDadosPath(Properties props) throws IOException {
+		return props.getProperty("prop.dados");
+
 	}
 	
 	
