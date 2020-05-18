@@ -5,7 +5,7 @@ Funcionalidade: Testes de Conhecimento
   
     Dado que o usuário esteja na pagina inicial
     Quando realizar uma busca pelo produto
-    Então validar se produto retornou no resultado da busca
+    Então validar se produto retornou no resultado da busca: "Celular Apple iPhone XS Max 64GB 4G iOS 13 Tela 6"
     
   Cenário: Adiciona Produto no Carrinho
   

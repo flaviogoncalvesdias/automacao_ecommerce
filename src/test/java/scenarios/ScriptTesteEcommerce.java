@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import io.cucumber.core.api.Scenario;
+import pages.HomePage;
 import utils.LeitorDadosTeste;
 import utils.PropertiesReader;
 
@@ -26,21 +27,49 @@ public class ScriptTesteEcommerce {
 		prop = properties.getProp();
 		
 //		logger.info("-- Inicio da Execução Cenário: " + scenario.getName());
-		inicializarChromeDriver(prop);
+		inicializarChromeDriver();
 		logger.info("URL: "+ dadosTeste.getData("url"));
 		
 	}
 	
 	@Test
 	public void script() {
-		driver.get(dadosTeste.getData("url"));
+		
+		try {
+			abrirUrl(dadosTeste.getData("url"));
+			pesquisarProdutoHome(dadosTeste.getData("produto1"));
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
+	 * Pesquisar produto HOME
+	 * @param produto
+	 * @throws Exception
+	 */
+	public void pesquisarProdutoHome(String produto) throws Exception {
+		HomePage home = new HomePage();
+		home.pesquisarProduto(driver, produto);
+			
+	}
+
+	/**
+	 * Método para abrir uma URL enviada
+	 * @param url
+	 */
+	private void abrirUrl(String url) {
+		driver.get(url);
 	}
 	
 	/**
 	 * Inicializa ChromeDriver	
 	 * @throws IOException
 	 */
-	private void inicializarChromeDriver(Properties prop) throws IOException {
+	private void inicializarChromeDriver() throws IOException {
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.addArguments("--start-maximized");
