@@ -1,8 +1,9 @@
 # language: pt
 Funcionalidade: Testes de Conhecimento
 
-  @FaltaImplementar
+  @Regressao
   Cenário: Concluir a compra
     Dado que o usuário esteja no carrinho de compras
-    Quando Preencher os dados
+    Quando Clicar em fazer Checkout 
+    E Preencher os dados
     Então Validar se botão concluir compra está habilitado

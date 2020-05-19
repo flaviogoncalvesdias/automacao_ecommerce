@@ -115,5 +115,24 @@ public class CarrinhoComprasPage {
 		}
 		
 	}
+	
+	/**
+	 * Metodo para fazer checkout carrinho de compras
+	 * @param driver
+	 * @param produto
+	 * @throws Exception
+	 */
+	public void fazerCheckoutCarrinhoCompras(WebDriver driver) throws Exception {
+		CarrinhoComprasMap carrinhoMap = new CarrinhoComprasMap();
+		try {
+			WebElement elemento = driver
+					.findElement(By.xpath((carrinhoMap.criaElementoCheckoutPedido())));
+			elemento.click();
+
+		} catch (Exception e) {
+			throw new Exception("Erro ao clicar em fazer Checkout carrinho de compras");
+		}
+		
+	}
 
 }

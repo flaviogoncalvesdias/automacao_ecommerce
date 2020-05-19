@@ -20,6 +20,7 @@ import io.cucumber.java.pt.Quando;
 import pages.CarrinhoComprasPage;
 import pages.DetalheProdutoPage;
 import pages.HomePage;
+import pages.PaginaCheckoutPage;
 import pages.ResultadoDaBuscaPage;
 import utils.LeitorDadosTeste;
 import utils.PropertiesReader;
@@ -142,7 +143,6 @@ public class ScriptTesteEcommerce {
 		}
 	}
 
-	
 	// Cenarios Remover item do carrinho
 
 	@Dado("que o usuário esteja no carrinho de compras com dois ou mais produtos diferentes")
@@ -180,6 +180,38 @@ public class ScriptTesteEcommerce {
 		}
 	}
 
+	// Concluir a compra
+	@Quando("Clicar em fazer Checkout")
+	public void clicar_em_fazer_Checkout() {
+		try {
+			clicarEmFazerCheckout();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Quando("Preencher os dados")
+	public void preencher_os_dados() {
+		try {
+			fazerLogin();
+			selecionarEnderecoDeEntrega();
+			selecionarPagamento();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Então("Validar se botão concluir compra está habilitado")
+	public void validar_se_botão_concluir_compra_está_habilitado() {
+		try {
+			validarBotaoConcluirPedidoTela();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Metodo clicar em comprar Produto
 	 * 
@@ -190,7 +222,7 @@ public class ScriptTesteEcommerce {
 		detalheProdutoPage.adicionarAoCarrinho(driver);
 		detalheProdutoPage.abrirCarrinhoCompras(driver);
 	}
-	
+
 	/**
 	 * Metodo clicar em adicionar Produto
 	 * 
@@ -200,9 +232,9 @@ public class ScriptTesteEcommerce {
 		DetalheProdutoPage detalheProdutoPage = new DetalheProdutoPage();
 		detalheProdutoPage.adicionarAoCarrinho(driver);
 	}
-	
+
 	/**
-	 * Metodo clicar Carrinho  de Compras
+	 * Metodo clicar Carrinho de Compras
 	 * 
 	 * @throws Exception
 	 */
@@ -301,7 +333,7 @@ public class ScriptTesteEcommerce {
 		carrinhoComprasPage.expandirListaQuantidadeCarrinhoCompras(driver);
 		carrinhoComprasPage.selecionaQuantidadeCarrinhoCompras(driver);
 	}
-	
+
 	/**
 	 * Método para remover produto do Carrinho de compras
 	 * 
@@ -321,6 +353,61 @@ public class ScriptTesteEcommerce {
 	private void validarQuantidadeProduto(Integer quantidade) throws Exception {
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
 		assertTrue(carrinhoComprasPage.validarQuantidadeProdutoCarrinhoCompras(driver, quantidade));
+	}
+
+	/**
+	 * Metodo para clicar no botão fazer Checkout
+	 * 
+	 * @throws Exception
+	 */
+	private void clicarEmFazerCheckout() throws Exception {
+		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
+		carrinhoComprasPage.fazerCheckoutCarrinhoCompras(driver);
+
+	}
+
+	/**
+	 * Clicar em concluir Tela Checkout
+	 * 
+	 * @throws Exception
+	 */
+	private void validarBotaoConcluirPedidoTela() throws Exception {
+		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
+		assertTrue(paginaCheckoutPage.validarBotaoConfirmarPedido(driver));
+
+	}
+
+	/**
+	 * Selecionar Pagamento
+	 * 
+	 * @throws Exception
+	 */
+	private void selecionarPagamento() throws Exception {
+		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
+		paginaCheckoutPage.clicarBoleto(driver);
+		paginaCheckoutPage.clicarContinuarPagamento(driver);
+	}
+
+	/**
+	 * Selecionar endereco de entrega
+	 * 
+	 * @throws Exception
+	 */
+	private void selecionarEnderecoDeEntrega() throws Exception {
+		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
+		paginaCheckoutPage.clicarEnviarEsteEndereco(driver);
+		paginaCheckoutPage.clicarContinuarEndereco(driver);
+	}
+
+	/**
+	 * Metodo para fazer Login
+	 * 
+	 * @throws Exception
+	 */
+	private void fazerLogin() throws Exception {
+		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
+		paginaCheckoutPage.preencherEmail(driver, dadosTeste.getData("email"));
+		paginaCheckoutPage.preencherSenha(driver, dadosTeste.getData("senha"));
 	}
 
 }

@@ -7,7 +7,7 @@ public class PaginaCheckoutMap {
 	 * 
 	 * @return
 	 */
-	public String criaElementoAbrirConfirmarPedido() {
+	public String criaElementoConfirmarPedido() {
 		return "//input[@name='placeYourOrder1']";
 	}
 
@@ -36,7 +36,7 @@ public class PaginaCheckoutMap {
 	 * @return
 	 */
 	public String criaElementoContinuar() {
-		return "//div[@class='a-box a-color-alternate-background pmts-portal-component pmts-portal-components-pp-koFzhd-4']//input[@name='ppw-widgetEvent:SetPaymentPlanSelectContinueEvent']";
+		return "//span[@class='a-button a-button-span12 a-button-primary pmts-button-input']";
 
 	}
 
