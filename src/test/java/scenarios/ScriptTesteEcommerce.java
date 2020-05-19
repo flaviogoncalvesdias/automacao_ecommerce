@@ -333,6 +333,7 @@ public class ScriptTesteEcommerce {
 	private void alterarQuantidadeProduto() throws Exception {
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
 		carrinhoComprasPage.expandirListaQuantidadeCarrinhoCompras(driver);
+		esperaCarregamento(1000);
 		carrinhoComprasPage.selecionaQuantidadeCarrinhoCompras(driver);
 	}
 
@@ -343,6 +344,7 @@ public class ScriptTesteEcommerce {
 	 */
 	private void removeProdutoCarrinho(String produto) throws Exception {
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
+		esperaCarregamento(2000);
 		carrinhoComprasPage.removeProdutoCarrinhoCompras(driver, produto);
 	}
 
