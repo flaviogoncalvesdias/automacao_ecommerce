@@ -17,6 +17,8 @@ import io.cucumber.java.After;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
+import pages.CarrinhoComprasPage;
+import pages.DetalheProdutoPage;
 import pages.HomePage;
 import pages.ResultadoDaBuscaPage;
 import utils.LeitorDadosTeste;
@@ -54,6 +56,18 @@ public class ScriptTesteEcommerce {
 		}
 	}
 
+	@Dado("selecionou um produto")
+	public void selecionou_um_produto() {
+		try {
+			abrirUrl(dadosTeste.getData("url"));
+			pesquisarProdutoHome(dadosTeste.getData("produto1"));
+			clicarProdutoPesquisado(dadosTeste.getData("DescricaoProduto1"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Quando("realizar uma busca pelo produto")
 	public void realizar_uma_busca_pelo_produto() {
 		try {
@@ -64,19 +78,66 @@ public class ScriptTesteEcommerce {
 		}
 	}
 
-	@Então("validar se produto retornou no resultado da busca: {string}")
-	public void validar_se_produto_retornou_no_resultado_da_busca(String string) {
+	@Quando("clicar em comprar")
+	public void clicar_em_comprar() {
 		try {
-			validarProdutoPesquisado("Celular Apple iPhone XS Max 64GB 4G iOS 13 Tela 6");
+			clicarComprar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Então("validar se produto retornou no resultado da busca: {string}")
+	public void validar_se_produto_retornou_no_resultado_da_busca(String produto) {
+		try {
+			validarProdutoPesquisado(produto);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	@Então("validar se produto foi adicionado ao carrinho de compras: {string}")
+	public void validar_se_produto_foi_adicionado_ao_carrinho_de_compras(String produto) {
+		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
+		try {
+			assertTrue(carrinhoComprasPage.validarCarrinhoCompras(driver));
+			assertTrue(carrinhoComprasPage.validarProdutoCarrinhoCompras(driver,produto));
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Metodo clicar em comprar Produto
+	 * @throws Exception
+	 */
+	private void clicarComprar() throws Exception {
+		DetalheProdutoPage detalheProdutoPage = new DetalheProdutoPage();
+		detalheProdutoPage.adicionarAoCarrinho(driver);
+	}
+	
+	/**
+	 * Validar Produto Pesquisado
+	 * @param produtoPesquisado
+	 * @throws Exception
+	 */
 	public void validarProdutoPesquisado(String produtoPesquisado) throws Exception {
 		ResultadoDaBuscaPage resultadoBuscaPage = new ResultadoDaBuscaPage();
 		assertTrue(resultadoBuscaPage.validarProdutoPesquisado(driver, produtoPesquisado));
+	}
+
+	/**
+	 * Clicar em Produto Pesquisado
+	 * @param produto
+	 * @throws Exception
+	 */
+	private void clicarProdutoPesquisado(String produto) throws Exception {
+		ResultadoDaBuscaPage resultadoBuscaPage = new ResultadoDaBuscaPage();
+		resultadoBuscaPage.clicarProdutoBuscado(driver, produto);
+
 	}
 
 	/**

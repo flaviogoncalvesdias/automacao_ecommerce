@@ -18,7 +18,6 @@ public class ResultadoDaBuscaPage {
 	 */
 	public void clicarProdutoBuscado(WebDriver driver, String produto) throws Exception {
 		ResultadoDaBuscaMap resultadoBuscaMap = new ResultadoDaBuscaMap();
-
 		try {
 			WebElement elemento = driver
 					.findElement(By.xpath((resultadoBuscaMap.criaElementoResultadoDaBusca(produto))));
