@@ -82,12 +82,38 @@ public class CarrinhoComprasPage {
 		try {
 			WebElement elemento = driver
 					.findElement(By.xpath((carrinhoMap.criaElementoValidarQuantidadeCarrinhoDeCompras())));
-			return elemento.getText().contains(quantidade + " itens");
+			
+			if(quantidade>1) {
+				return elemento.getText().contains(quantidade + " itens");
+			}
+			else{
+				return elemento.getText().contains(quantidade + " item");
+			}
+		
 
 		} catch (Exception e) {
 			throw new Exception("Erro ao validar quantidade de produtos no carrinho de compras");
 		}
 
+	}
+
+	/**
+	 * Metodo para remover produto do carrinho de compras
+	 * @param driver
+	 * @param produto
+	 * @throws Exception
+	 */
+	public void removeProdutoCarrinhoCompras(WebDriver driver, String produto) throws Exception {
+		CarrinhoComprasMap carrinhoMap = new CarrinhoComprasMap();
+		try {
+			WebElement elemento = driver
+					.findElement(By.xpath((carrinhoMap.criaElementoRemoverProdutoCarrinhoDeCompras())));
+			elemento.click();
+
+		} catch (Exception e) {
+			throw new Exception("Erro ao remover produtos no carrinho de compras");
+		}
+		
 	}
 
 }

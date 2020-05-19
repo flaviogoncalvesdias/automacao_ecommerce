@@ -46,6 +46,7 @@ public class ScriptTesteEcommerce {
 		driver.quit();
 	}
 
+	// Cenário: Busca Produto
 	@Dado("que o usuário esteja na pagina inicial")
 	public void que_o_usuário_esteja_na_pagina_inicial() {
 		try {
@@ -55,6 +56,27 @@ public class ScriptTesteEcommerce {
 		}
 	}
 
+	@Quando("realizar uma busca pelo produto")
+	public void realizar_uma_busca_pelo_produto() {
+		try {
+			pesquisarProdutoHome(dadosTeste.getData("produto1"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Então("validar se produto retornou no resultado da busca: {string}")
+	public void validar_se_produto_retornou_no_resultado_da_busca(String produto) {
+		try {
+			validarProdutoPesquisado(produto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}// Cenário: Busca Produto
+
+	// Cenario: Adiciona Produto no Carrinho
 	@Dado("selecionou um produto")
 	public void selecionou_um_produto() {
 		try {
@@ -62,29 +84,6 @@ public class ScriptTesteEcommerce {
 			clicarProdutoPesquisado(dadosTeste.getData("DescricaoProduto1"));
 
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Dado("que o usuário esteja no carrinho de compras")
-	public void que_o_usuário_esteja_no_carrinho_de_compras() {
-		try {
-			abrirUrl(dadosTeste.getData("url"));
-			pesquisarProdutoHome(dadosTeste.getData("produto1"));
-			clicarProdutoPesquisado(dadosTeste.getData("DescricaoProduto1"));
-			clicarComprar();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-
-	@Quando("realizar uma busca pelo produto")
-	public void realizar_uma_busca_pelo_produto() {
-		try {
-			pesquisarProdutoHome(dadosTeste.getData("produto1"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -97,41 +96,42 @@ public class ScriptTesteEcommerce {
 			e.printStackTrace();
 		}
 	}
-	
-	@Quando("alterar a quantidade de um item")
-	public void alterar_a_quantidade_de_um_item() {
-	    try {
-			alterarQuantidadeProduto();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-
-
-	@Então("validar se produto retornou no resultado da busca: {string}")
-	public void validar_se_produto_retornou_no_resultado_da_busca(String produto) {
-		try {
-			validarProdutoPesquisado(produto);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	@Então("validar se produto foi adicionado ao carrinho de compras: {string}")
 	public void validar_se_produto_foi_adicionado_ao_carrinho_de_compras(String produto) {
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
 		try {
 			assertTrue(carrinhoComprasPage.validarCarrinhoCompras(driver));
-			assertTrue(carrinhoComprasPage.validarProdutoCarrinhoCompras(driver,produto));
+			assertTrue(carrinhoComprasPage.validarProdutoCarrinhoCompras(driver, produto));
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}// Cenario: Adiciona Produto no Carrinho
+
+	// Cenarios Altera a quantidade de um item do carrinho compras
+	@Dado("que o usuário esteja no carrinho de compras")
+	public void que_o_usuário_esteja_no_carrinho_de_compras() {
+		try {
+			abrirUrl(dadosTeste.getData("url"));
+			pesquisarProdutoHome(dadosTeste.getData("produto1"));
+			clicarProdutoPesquisado(dadosTeste.getData("DescricaoProduto1"));
+			clicarComprar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
+
+	@Quando("alterar a quantidade de um item")
+	public void alterar_a_quantidade_de_um_item() {
+		try {
+			alterarQuantidadeProduto();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Então("validar se a quantidade é igual a : {int}")
 	public void validar_se_a_quantidade_é_igual_a(Integer quantidade) {
 		try {
@@ -142,8 +142,47 @@ public class ScriptTesteEcommerce {
 		}
 	}
 
+	
+	// Cenarios Remover item do carrinho
+
+	@Dado("que o usuário esteja no carrinho de compras com dois ou mais produtos diferentes")
+	public void que_o_usuário_esteja_no_carrinho_de_compras_com_pelo_menos_produtos_diferentes() {
+		try {
+			abrirUrl(dadosTeste.getData("url"));
+			pesquisarProdutoHome(dadosTeste.getData("produto1"));
+			clicarProdutoPesquisado(dadosTeste.getData("DescricaoProduto1"));
+			adicionarProduto();
+			pesquisarProdutoHome(dadosTeste.getData("produto2"));
+			clicarProdutoPesquisado(dadosTeste.getData("DescricaoProduto2"));
+			clicarComprar();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Quando("remover um item")
+	public void remover_um_item() {
+		try {
+			removeProdutoCarrinho(dadosTeste.getData("DescricaoProduto2"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Então("validar se o item foi removido")
+	public void validar_se_o_item_foi_removido() {
+		try {
+			validarQuantidadeProduto(1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Metodo clicar em comprar Produto
+	 * 
 	 * @throws Exception
 	 */
 	private void clicarComprar() throws Exception {
@@ -153,7 +192,28 @@ public class ScriptTesteEcommerce {
 	}
 	
 	/**
+	 * Metodo clicar em adicionar Produto
+	 * 
+	 * @throws Exception
+	 */
+	private void adicionarProduto() throws Exception {
+		DetalheProdutoPage detalheProdutoPage = new DetalheProdutoPage();
+		detalheProdutoPage.adicionarAoCarrinho(driver);
+	}
+	
+	/**
+	 * Metodo clicar Carrinho  de Compras
+	 * 
+	 * @throws Exception
+	 */
+	private void clicarCarrinho() throws Exception {
+		DetalheProdutoPage detalheProdutoPage = new DetalheProdutoPage();
+		detalheProdutoPage.abrirCarrinhoCompras(driver);
+	}
+
+	/**
 	 * Validar Produto Pesquisado
+	 * 
 	 * @param produtoPesquisado
 	 * @throws Exception
 	 */
@@ -164,6 +224,7 @@ public class ScriptTesteEcommerce {
 
 	/**
 	 * Clicar em Produto Pesquisado
+	 * 
 	 * @param produto
 	 * @throws Exception
 	 */
@@ -229,9 +290,11 @@ public class ScriptTesteEcommerce {
 		return props.getProperty("prop.dados");
 
 	}
+
 	/**
 	 * Método para alterar a quantidade do produto
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	private void alterarQuantidadeProduto() throws Exception {
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
@@ -240,16 +303,24 @@ public class ScriptTesteEcommerce {
 	}
 	
 	/**
+	 * Método para remover produto do Carrinho de compras
+	 * 
+	 * @throws Exception
+	 */
+	private void removeProdutoCarrinho(String produto) throws Exception {
+		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
+		carrinhoComprasPage.removeProdutoCarrinhoCompras(driver, produto);
+	}
+
+	/**
 	 * Método para validar a Quantidade do produto
-	 * @param quantidade 
-	 * @throws Exception 
+	 * 
+	 * @param quantidade
+	 * @throws Exception
 	 */
 	private void validarQuantidadeProduto(Integer quantidade) throws Exception {
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
-		assertTrue(carrinhoComprasPage.validarQuantidadeProdutoCarrinhoCompras(driver,quantidade));
+		assertTrue(carrinhoComprasPage.validarQuantidadeProdutoCarrinhoCompras(driver, quantidade));
 	}
-	
-	
-	
 
 }

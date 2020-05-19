@@ -37,4 +37,12 @@ public class CarrinhoComprasMap {
 		return "//span[@id='sc-subtotal-label-activecart']";
 	}
 	
+	/**
+	 * Metodo cria Elemento para excluir Item
+	 * @return
+	 */
+	public String criaElementoRemoverProdutoCarrinhoDeCompras() {
+		return "//div//input[@value='Excluir']";
+	}
+	
 }

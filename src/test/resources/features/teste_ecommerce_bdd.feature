@@ -4,7 +4,7 @@ Funcionalidade: Testes de Conhecimento
   Cenário: Busca Produto
     Dado que o usuário esteja na pagina inicial
     Quando realizar uma busca pelo produto
-    Então validar se produto retornou no resultado da busca: "Celular Apple iPhone XS Max 64GB 4G iOS 13 Tela 6"
+    Então validar se produto retornou no resultado da busca: "Iphone Xs 64Gb Prata"
 
   Cenário: Adiciona Produto no Carrinho
     Dado que o usuário esteja na pagina inicial
@@ -12,15 +12,14 @@ Funcionalidade: Testes de Conhecimento
     Quando clicar em comprar
     Então validar se produto foi adicionado ao carrinho de compras: "Iphone Xs 64Gb Prata"
 
-  @Regressao
   Cenário: Altera a quantidade de um item do carrinho compras
     Dado que o usuário esteja no carrinho de compras
     Quando alterar a quantidade de um item
     Então validar se a quantidade é igual a : 2
 
-  @FaltaImplementar
+  @Regressao
   Cenário: Remover item do carrinho
-    Dado que o usuário esteja no carrinho de compras com pelo menos 2 produtos diferentes
+    Dado que o usuário esteja no carrinho de compras com dois ou mais produtos diferentes
     Quando remover um item
     Então validar se o item foi removido
 
