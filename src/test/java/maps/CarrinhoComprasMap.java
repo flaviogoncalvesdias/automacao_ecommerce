@@ -50,7 +50,8 @@ public class CarrinhoComprasMap {
 	 * @return
 	 */
 	public String criaElementoCheckoutPedido() {
-		return "//input[@name='proceedToRetailCheckout']";
+		return "//*[@id=\"sc-buy-box-ptc-button\"]/span/input";
+
 	}
 	
 }

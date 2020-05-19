@@ -3,6 +3,8 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import maps.CarrinhoComprasMap;
 
@@ -123,10 +125,11 @@ public class CarrinhoComprasPage {
 	 * @throws Exception
 	 */
 	public void fazerCheckoutCarrinhoCompras(WebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 18);
 		CarrinhoComprasMap carrinhoMap = new CarrinhoComprasMap();
 		try {
-			WebElement elemento = driver
-					.findElement(By.xpath((carrinhoMap.criaElementoCheckoutPedido())));
+			WebElement elemento = wait.until(ExpectedConditions.elementToBeClickable(driver
+					.findElement(By.xpath((carrinhoMap.criaElementoCheckoutPedido())))));
 			elemento.click();
 
 		} catch (Exception e) {

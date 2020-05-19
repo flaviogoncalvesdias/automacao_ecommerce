@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -220,6 +221,7 @@ public class ScriptTesteEcommerce {
 	private void clicarComprar() throws Exception {
 		DetalheProdutoPage detalheProdutoPage = new DetalheProdutoPage();
 		detalheProdutoPage.adicionarAoCarrinho(driver);
+		esperaCarregamento();
 		detalheProdutoPage.abrirCarrinhoCompras(driver);
 	}
 
@@ -352,6 +354,7 @@ public class ScriptTesteEcommerce {
 	 */
 	private void validarQuantidadeProduto(Integer quantidade) throws Exception {
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
+		esperaCarregamento();
 		assertTrue(carrinhoComprasPage.validarQuantidadeProdutoCarrinhoCompras(driver, quantidade));
 	}
 
@@ -372,6 +375,7 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void validarBotaoConcluirPedidoTela() throws Exception {
+		esperaCarregamento(5000);
 		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
 		assertTrue(paginaCheckoutPage.validarBotaoConfirmarPedido(driver));
 
@@ -384,7 +388,10 @@ public class ScriptTesteEcommerce {
 	 */
 	private void selecionarPagamento() throws Exception {
 		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
+		esperaCarregamento(2000);
 		paginaCheckoutPage.clicarBoleto(driver);
+		paginaCheckoutPage.clicarBoleto(driver);
+		esperaCarregamento();
 		paginaCheckoutPage.clicarContinuarPagamento(driver);
 	}
 
@@ -396,6 +403,7 @@ public class ScriptTesteEcommerce {
 	private void selecionarEnderecoDeEntrega() throws Exception {
 		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
 		paginaCheckoutPage.clicarEnviarEsteEndereco(driver);
+		esperaCarregamento();
 		paginaCheckoutPage.clicarContinuarEndereco(driver);
 	}
 
@@ -407,7 +415,26 @@ public class ScriptTesteEcommerce {
 	private void fazerLogin() throws Exception {
 		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
 		paginaCheckoutPage.preencherEmail(driver, dadosTeste.getData("email"));
+		esperaCarregamento();
 		paginaCheckoutPage.preencherSenha(driver, dadosTeste.getData("senha"));
+	}
+	
+	
+	/**
+	 * Metodo para forcar espera no carregamento da pagina ou Elemento
+	 * @throws InterruptedException
+	 */
+	public void esperaCarregamento() throws InterruptedException {
+		Thread.sleep(3000);		
+	}
+	
+/**
+ * Metodo para forcar espera no carregamento da pagina ou Elemento com tempo por parametro
+ * @param i
+ * @throws InterruptedException
+ */
+	public void esperaCarregamento(int i) throws InterruptedException {
+		Thread.sleep(i);		
 	}
 
 }

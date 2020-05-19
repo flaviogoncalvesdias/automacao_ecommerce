@@ -3,6 +3,8 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import maps.DetalheProdutoMap;
 import maps.HomeMap;
@@ -32,9 +34,10 @@ public class DetalheProdutoPage {
 	 * @throws Exception
 	 */
 	public void abrirCarrinhoCompras(WebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 18);
 		DetalheProdutoMap adicionaCarrinho = new DetalheProdutoMap();
 		try {
-			WebElement elemento = driver.findElement(By.xpath((adicionaCarrinho.criaElementoAbrirCarrinhoCompras())));
+			WebElement elemento =wait.until(ExpectedConditions.elementToBeClickable( driver.findElement(By.xpath((adicionaCarrinho.criaElementoAbrirCarrinhoCompras())))));
 			elemento.click();
 		} catch (Exception e) {
 			throw new Exception("Erro ao abrir carrinho de compras elemento: " + adicionaCarrinho);

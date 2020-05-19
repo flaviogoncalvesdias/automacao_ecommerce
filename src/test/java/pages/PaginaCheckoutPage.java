@@ -3,6 +3,8 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import maps.CarrinhoComprasMap;
 import maps.PaginaCheckoutMap;
@@ -17,9 +19,10 @@ public class PaginaCheckoutPage {
 	 * @throws Exception
 	 */
 	public void preencherEmail(WebDriver driver, String email) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 18);
 		PaginaCheckoutMap paginaCheckoutMap = new PaginaCheckoutMap();
 		try {
-			WebElement elemento = driver.findElement(By.xpath((paginaCheckoutMap.criaElementoLoginEmail())));
+			WebElement elemento = wait.until(ExpectedConditions.elementToBeClickable( driver.findElement(By.xpath((paginaCheckoutMap.criaElementoLoginEmail())))));
 			elemento.click();
 			elemento.sendKeys(email);
 			elemento.submit();
@@ -38,9 +41,10 @@ public class PaginaCheckoutPage {
 	 * @throws Exception
 	 */
 	public void preencherSenha(WebDriver driver, String senha) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 18);
 		PaginaCheckoutMap paginaCheckoutMap = new PaginaCheckoutMap();
 		try {
-			WebElement elemento = driver.findElement(By.xpath((paginaCheckoutMap.criaElementoLoginSenha())));
+			WebElement elemento = wait.until(ExpectedConditions.elementToBeClickable( driver.findElement(By.xpath((paginaCheckoutMap.criaElementoLoginSenha())))));
 			elemento.click();
 			elemento.sendKeys(senha);
 			elemento.submit();
@@ -57,10 +61,11 @@ public class PaginaCheckoutPage {
 	 * @throws Exception
 	 */
 	public void clicarEnviarEsteEndereco(WebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 18);
 		PaginaCheckoutMap paginaCheckoutMap = new PaginaCheckoutMap();
 		try {
-			WebElement elemento = driver
-					.findElement(By.xpath((paginaCheckoutMap.criaElementoEnviarParaEnderecoCadastrado())));
+			WebElement elemento = wait.until(ExpectedConditions.elementToBeClickable( driver
+					.findElement(By.xpath((paginaCheckoutMap.criaElementoEnviarParaEnderecoCadastrado())))));
 			elemento.click();
 		} catch (Exception e) {
 			throw new Exception("Erro ao clicar no botão enviar para este endereço");
@@ -75,9 +80,10 @@ public class PaginaCheckoutPage {
 	 * @throws Exception
 	 */
 	public void clicarContinuarEndereco(WebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 18);
 		PaginaCheckoutMap paginaCheckoutMap = new PaginaCheckoutMap();
 		try {
-			WebElement elemento = driver.findElement(By.xpath((paginaCheckoutMap.criaElementoContinuarEntrega())));
+			WebElement elemento = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath((paginaCheckoutMap.criaElementoContinuarEntrega())))));
 			elemento.click();
 		} catch (Exception e) {
 			throw new Exception("Erro ao clicar no botão continuar Pagina Endereço");
@@ -92,9 +98,10 @@ public class PaginaCheckoutPage {
 	 * @throws Exception
 	 */
 	public void clicarBoleto(WebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 18);
 		PaginaCheckoutMap paginaCheckoutMap = new PaginaCheckoutMap();
 		try {
-			WebElement elemento = driver.findElement(By.xpath((paginaCheckoutMap.criaElementoBoleto())));
+			WebElement elemento = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath((paginaCheckoutMap.criaElementoBoleto())))));
 			elemento.click();
 		} catch (Exception e) {
 			throw new Exception("Erro ao clicar no checkbox Boleto");
@@ -109,9 +116,10 @@ public class PaginaCheckoutPage {
 	 * @throws Exception
 	 */
 	public void clicarContinuarPagamento(WebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 18);
 		PaginaCheckoutMap paginaCheckoutMap = new PaginaCheckoutMap();
 		try {
-			WebElement elemento = driver.findElement(By.xpath((paginaCheckoutMap.criaElementoContinuar())));
+			WebElement elemento =wait.until(ExpectedConditions.elementToBeClickable( driver.findElement(By.xpath((paginaCheckoutMap.criaElementoContinuar())))));
 			elemento.click();
 		} catch (Exception e) {
 			throw new Exception("Erro ao clicar no botao continuar");
@@ -127,9 +135,10 @@ public class PaginaCheckoutPage {
 	 * @throws Exception
 	 */
 	public Boolean validarBotaoConfirmarPedido(WebDriver driver) throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, 18);
 		PaginaCheckoutMap paginaCheckoutMap = new PaginaCheckoutMap();
 		try {
-			WebElement elemento = driver.findElement(By.xpath((paginaCheckoutMap.criaElementoConfirmarPedido())));
+			WebElement elemento = wait.until(ExpectedConditions.elementToBeClickable( driver.findElement(By.xpath((paginaCheckoutMap.criaElementoConfirmarPedido())))));
 			return elemento.isDisplayed();
 		} catch (Exception e) {
 			throw new Exception("Erro validar existencia do botão Confirmar Pedido");
