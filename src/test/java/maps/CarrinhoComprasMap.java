@@ -45,4 +45,12 @@ public class CarrinhoComprasMap {
 		return "//div//input[@value='Excluir']";
 	}
 	
+	/**
+	 * Cria elemento para ir para pagina de checkout do pedido
+	 * @return
+	 */
+	public String criaElementoCheckoutPedido() {
+		return "//input[@name='proceedToRetailCheckout']";
+	}
+	
 }
