@@ -41,7 +41,7 @@ public class CarrinhoComprasPage {
 	}
 
 	/**
-	 * Metoodo para validar abertura da pagina Carrinho de compras
+	 * Metodo para validar abertura da pagina Carrinho de compras
 	 * 
 	 * @param driver
 	 * @throws Exception
@@ -59,12 +59,35 @@ public class CarrinhoComprasPage {
 
 	/**
 	 * Metodo para validar se o produto esta no Carrinho de compras
+	 * 
 	 * @param driver
 	 * @param produto
 	 * @return
 	 */
 	public boolean validarProdutoCarrinhoCompras(WebDriver driver, String produto) {
 		return driver.getPageSource().contains(produto);
+	}
+
+	/**
+	 * Metodo para validar se a quantidade do produto foi alterada
+	 * 
+	 * @param driver
+	 * @param produto
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean validarQuantidadeProdutoCarrinhoCompras(WebDriver driver, Integer quantidade) throws Exception {
+
+		CarrinhoComprasMap carrinhoMap = new CarrinhoComprasMap();
+		try {
+			WebElement elemento = driver
+					.findElement(By.xpath((carrinhoMap.criaElementoValidarQuantidadeCarrinhoDeCompras())));
+			return elemento.getText().contains(quantidade + " itens");
+
+		} catch (Exception e) {
+			throw new Exception("Erro ao validar quantidade de produtos no carrinho de compras");
+		}
+
 	}
 
 }

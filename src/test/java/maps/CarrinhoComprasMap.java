@@ -28,5 +28,13 @@ public class CarrinhoComprasMap {
 	public String criaElementoValidarCarrinhoDeCompras() {
 		return "//h2[contains(text(),'Carrinho de compras')]";
 	}
-
+	
+	/**
+	 * Cria elemento para validar quantidade de Itens
+	 * @return
+	 */
+	public String criaElementoValidarQuantidadeCarrinhoDeCompras() {
+		return "//span[@id='sc-subtotal-label-activecart']";
+	}
+	
 }

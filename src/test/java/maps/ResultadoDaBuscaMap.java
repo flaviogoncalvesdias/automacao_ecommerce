@@ -9,7 +9,7 @@ public class ResultadoDaBuscaMap {
  * @return
  */
 	public String criaElementoResultadoDaBusca(String produto) {
-		return "//span[contains(text(),'"+produto+",')]";
+		return "//span[contains(text(),'"+produto+"')]";
 	}
 	
 	
