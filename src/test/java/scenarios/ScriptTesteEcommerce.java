@@ -295,7 +295,11 @@ public class ScriptTesteEcommerce {
 	 * @throws IOException
 	 */
 	private void inicializarChromeDriver() throws IOException {
-		System.setProperty("webdriver.chrome.driver", "chromedriver");
+		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+			System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		} else {
+			System.setProperty("webdriver.chrome.driver", "chromedriver");
+		}
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.addArguments("--start-maximized");
 		driver = new ChromeDriver(chromeOptions);
@@ -420,23 +424,25 @@ public class ScriptTesteEcommerce {
 		esperaCarregamento();
 		paginaCheckoutPage.preencherSenha(driver, dadosTeste.getData("senha"));
 	}
-	
-	
+
 	/**
 	 * Metodo para forcar espera no carregamento da pagina ou Elemento
+	 * 
 	 * @throws InterruptedException
 	 */
 	public void esperaCarregamento() throws InterruptedException {
-		Thread.sleep(3000);		
+		Thread.sleep(3000);
 	}
-	
-/**
- * Metodo para forcar espera no carregamento da pagina ou Elemento com tempo por parametro
- * @param i
- * @throws InterruptedException
- */
+
+	/**
+	 * Metodo para forcar espera no carregamento da pagina ou Elemento com tempo por
+	 * parametro
+	 * 
+	 * @param i
+	 * @throws InterruptedException
+	 */
 	public void esperaCarregamento(int i) throws InterruptedException {
-		Thread.sleep(i);		
+		Thread.sleep(i);
 	}
 
 }
