@@ -219,7 +219,9 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void clicarComprar() throws Exception {
+		logger.info("Clicando em comprar");
 		DetalheProdutoPage detalheProdutoPage = new DetalheProdutoPage();
+		esperaCarregamento(1000);
 		detalheProdutoPage.adicionarAoCarrinho(driver);
 		esperaCarregamento();
 		detalheProdutoPage.abrirCarrinhoCompras(driver);
@@ -231,7 +233,9 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void adicionarProduto() throws Exception {
+		logger.info("Clicando em adicionar Produto");
 		DetalheProdutoPage detalheProdutoPage = new DetalheProdutoPage();
+		esperaCarregamento(1000);
 		detalheProdutoPage.adicionarAoCarrinho(driver);
 	}
 
@@ -241,7 +245,9 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void clicarCarrinho() throws Exception {
+		logger.info("Clicando em carrinho");
 		DetalheProdutoPage detalheProdutoPage = new DetalheProdutoPage();
+		esperaCarregamento(2000);
 		detalheProdutoPage.abrirCarrinhoCompras(driver);
 	}
 
@@ -252,7 +258,9 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	public void validarProdutoPesquisado(String produtoPesquisado) throws Exception {
+		logger.info("Validar Produto Pesquisado");
 		ResultadoDaBuscaPage resultadoBuscaPage = new ResultadoDaBuscaPage();
+		esperaCarregamento(2000);
 		assertTrue(resultadoBuscaPage.validarProdutoPesquisado(driver, produtoPesquisado));
 	}
 
@@ -263,7 +271,9 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void clicarProdutoPesquisado(String produto) throws Exception {
+		logger.info("Clicando em Produto pesquisado");
 		ResultadoDaBuscaPage resultadoBuscaPage = new ResultadoDaBuscaPage();
+		esperaCarregamento(1000);
 		resultadoBuscaPage.clicarProdutoBuscado(driver, produto);
 
 	}
@@ -275,6 +285,7 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	public void pesquisarProdutoHome(String produto) throws Exception {
+		logger.info("Pesquisar Produto");
 		HomePage home = new HomePage();
 		home.pesquisarProduto(driver, produto);
 
@@ -295,6 +306,7 @@ public class ScriptTesteEcommerce {
 	 * @throws IOException
 	 */
 	private void inicializarChromeDriver() throws IOException {
+		logger.info("Inicializando ChormeDrivers");
 		if (System.getProperty("os.name").toLowerCase().contains("windows")) {
 			System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		} else {
@@ -335,9 +347,11 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void alterarQuantidadeProduto() throws Exception {
+		logger.info("Alterando Quanditade Produto");
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
+		esperaCarregamento(2000);
 		carrinhoComprasPage.expandirListaQuantidadeCarrinhoCompras(driver);
-		esperaCarregamento(1000);
+		esperaCarregamento(2000);
 		carrinhoComprasPage.selecionaQuantidadeCarrinhoCompras(driver);
 	}
 
@@ -347,6 +361,7 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void removeProdutoCarrinho(String produto) throws Exception {
+		logger.info("Remove Produto Carrinho");
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
 		esperaCarregamento(2000);
 		carrinhoComprasPage.removeProdutoCarrinhoCompras(driver, produto);
@@ -359,6 +374,7 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void validarQuantidadeProduto(Integer quantidade) throws Exception {
+		logger.info("Valida quantidade do Produto");
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
 		esperaCarregamento();
 		assertTrue(carrinhoComprasPage.validarQuantidadeProdutoCarrinhoCompras(driver, quantidade));
@@ -370,6 +386,7 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void clicarEmFazerCheckout() throws Exception {
+		logger.info("Fazer checkout");
 		CarrinhoComprasPage carrinhoComprasPage = new CarrinhoComprasPage();
 		carrinhoComprasPage.fazerCheckoutCarrinhoCompras(driver);
 
@@ -381,6 +398,7 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void validarBotaoConcluirPedidoTela() throws Exception {
+		logger.info("Validar botão concluir pedido");
 		esperaCarregamento(5000);
 		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
 		assertTrue(paginaCheckoutPage.validarBotaoConfirmarPedido(driver));
@@ -393,6 +411,7 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void selecionarPagamento() throws Exception {
+		logger.info("Selecionando forma de Pagamento");
 		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
 		esperaCarregamento(2000);
 		paginaCheckoutPage.clicarBoleto(driver);
@@ -407,7 +426,9 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void selecionarEnderecoDeEntrega() throws Exception {
+		logger.info("Selecionar endereço de entrega");
 		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
+		esperaCarregamento(2000);
 		paginaCheckoutPage.clicarEnviarEsteEndereco(driver);
 		esperaCarregamento();
 		paginaCheckoutPage.clicarContinuarEndereco(driver);
@@ -419,9 +440,10 @@ public class ScriptTesteEcommerce {
 	 * @throws Exception
 	 */
 	private void fazerLogin() throws Exception {
+		logger.info("Fazer Login");
 		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
 		paginaCheckoutPage.preencherEmail(driver, dadosTeste.getData("email"));
-		esperaCarregamento();
+		esperaCarregamento(1000);
 		paginaCheckoutPage.preencherSenha(driver, dadosTeste.getData("senha"));
 	}
 
