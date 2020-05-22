@@ -46,6 +46,8 @@ Outras informações:
 
 2- O Projeto está armazenando algumas informações pertinentes aos testes, no arquivo dadosTestes.json. 
 
+3- O Log das execuções esta na pasta output na raiz do projeto. 
+
 
 
 

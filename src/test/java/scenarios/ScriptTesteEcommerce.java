@@ -442,6 +442,7 @@ public class ScriptTesteEcommerce {
 	private void fazerLogin() throws Exception {
 		logger.info("Fazer Login");
 		PaginaCheckoutPage paginaCheckoutPage = new PaginaCheckoutPage();
+		esperaCarregamento(2000);
 		paginaCheckoutPage.preencherEmail(driver, dadosTeste.getData("email"));
 		esperaCarregamento(1000);
 		paginaCheckoutPage.preencherSenha(driver, dadosTeste.getData("senha"));
