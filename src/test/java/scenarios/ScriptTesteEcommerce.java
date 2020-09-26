@@ -3,6 +3,8 @@ package scenarios;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +18,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import io.cucumber.core.api.Scenario;
 import io.cucumber.java.After;
 import io.cucumber.java.pt.Dado;
+import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import pages.CarrinhoComprasPage;
@@ -447,6 +450,32 @@ public class ScriptTesteEcommerce {
 		esperaCarregamento(1000);
 		paginaCheckoutPage.preencherSenha(driver, dadosTeste.getData("senha"));
 	}
+	
+	@Entao("Imprime na tela:")
+	public void imprime_na_tela(io.cucumber.datatable.DataTable dataTable) {
+	   
+		List<Map<String, String>> mapDados = dataTable.asMaps(String.class, String.class);
+	    System.out.println(mapDados.get(0).get("Primeiro nome")+"\n");
+	    System.out.println(mapDados.get(0).get("Ultimo nome")+"\n");
+	    System.out.println(mapDados.get(0).get("Telefone")+"\n");
+	    System.out.println(mapDados.get(0).get("Password")+"\n");
+	    System.out.println(mapDados.get(0).get("Nascimento")+"\n");
+	    System.out.println(mapDados.get(0).get("Mes")+"\n");
+	    System.out.println(mapDados.get(0).get("Ano")+"\n");
+	    
+	    
+	    
+	}
+	
+	
+	@Entao("Imprime os animais na tela:")
+	public void the_following_animals(List<String> animals) {
+		
+		for (String string : animals) {
+			System.out.println(string);
+		}
+	}
+	
 
 	/**
 	 * Metodo para forcar espera no carregamento da pagina ou Elemento
@@ -467,5 +496,8 @@ public class ScriptTesteEcommerce {
 	public void esperaCarregamento(int i) throws InterruptedException {
 		Thread.sleep(i);
 	}
+	
+	
+	
 
 }

@@ -6,7 +6,7 @@ import io.cucumber.junit.CucumberOptions;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features",monochrome = false, glue = { "scenarios"})
+@CucumberOptions(features = "src/test/resources/features",monochrome = false, glue = { "scenarios"}, tags={"@testeTabelas"})
 public class RunnerWeb {
 
 }
