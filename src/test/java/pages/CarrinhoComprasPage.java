@@ -35,6 +35,7 @@ public class CarrinhoComprasPage {
 	public void selecionaQuantidadeCarrinhoCompras(WebDriver driver) throws Exception {
 		CarrinhoComprasMap carrinhoMap = new CarrinhoComprasMap();
 		try {
+			Thread.sleep(1000);
 			WebElement elemento = driver.findElement(By.xpath((carrinhoMap.criaElementoClicarQuantidadeDois())));
 			elemento.click();
 		} catch (Exception e) {
@@ -74,25 +75,14 @@ public class CarrinhoComprasPage {
 	 * Metodo para validar se a quantidade do produto foi alterada
 	 * 
 	 * @param driver
-	 * @param produto
+	 * @param
 	 * @return
 	 * @throws Exception
 	 */
 	public boolean validarQuantidadeProdutoCarrinhoCompras(WebDriver driver, Integer quantidade) throws Exception {
 
-		CarrinhoComprasMap carrinhoMap = new CarrinhoComprasMap();
 		try {
-			WebElement elemento = driver
-					.findElement(By.xpath((carrinhoMap.criaElementoValidarQuantidadeCarrinhoDeCompras())));
-			
-			if(quantidade>1) {
-				return elemento.getText().contains(quantidade + " itens");
-			}
-			else{
-				return elemento.getText().contains(quantidade + " item");
-			}
-		
-
+				return driver.getPageSource().contains("Subtotal ("+quantidade);
 		} catch (Exception e) {
 			throw new Exception("Erro ao validar quantidade de produtos no carrinho de compras");
 		}
@@ -121,7 +111,6 @@ public class CarrinhoComprasPage {
 	/**
 	 * Metodo para fazer checkout carrinho de compras
 	 * @param driver
-	 * @param produto
 	 * @throws Exception
 	 */
 	public void fazerCheckoutCarrinhoCompras(WebDriver driver) throws Exception {

@@ -8,7 +8,7 @@ public class CarrinhoComprasMap {
 	 * @return
 	 */
 	public String criaElementoExpandirListaQuantidade() {
-		return "//span[@class='a-dropdown-prompt']";
+		return "//*[@id='a-autoid-0-announce']";
 	}
 
 	/**
@@ -17,7 +17,7 @@ public class CarrinhoComprasMap {
 	 * @return
 	 */
 	public String criaElementoClicarQuantidadeDois() {
-		return "//a[@id='dropdown1_2']";
+		return "//*[@class='a-dropdown-item quantity-option']";
 	}
 	
 	
